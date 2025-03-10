@@ -16,4 +16,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-prettyPrint(tree.root);
+const test = tree.buildTreeLoop(arr);
+
+prettyPrint(test);

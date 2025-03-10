@@ -1,8 +1,8 @@
 class Node {
     constructor(data) {
         this.data = data;
-        this.left;
-        this.right;
+        this.left = null;
+        this.right = null;
     }
 }
 
@@ -24,5 +24,37 @@ export class Tree {
     buildTree(array) {
         const uniqueArr = [...new Set(array)].sort((a, b) => a - b);
         return this.buildTreeStructure(uniqueArr, 0, uniqueArr.length - 1);
+    }
+
+    buildTreeLoop(array) {
+        const uniqueArr = [...new Set(array)].sort((a, b) => a - b);
+        const n = uniqueArr.length;
+        const mid = Math.floor((n - 0) / 2);
+        const root = new Node(uniqueArr[mid]);
+        const queue = [{node : root, range: [0, n - 1]}];
+        let queueFront = 0;
+
+        while(queue.length > queueFront) {
+            const currentNode = queue[queueFront].node;
+            const [start, end] = [...queue[queueFront].range];
+            const midOfRange = start + Math.floor((end - start) / 2);
+
+            if(midOfRange > start) {
+                const leftMid = start + Math.floor((midOfRange - 1 - start) / 2);
+                const leftNode = new Node(uniqueArr[leftMid]);
+                currentNode.left = leftNode;
+                queue.push({node : leftNode, range: [start, midOfRange - 1]});
+            }
+
+            if(midOfRange < end) {
+                const rightMid = midOfRange + 1 + Math.floor((end - midOfRange - 1) / 2);
+                const rightNode = new Node(uniqueArr[rightMid]);
+                currentNode.right = rightNode;
+                queue.push({node : rightNode, range: [midOfRange + 1, end]});
+            }
+            queueFront++;
+        }
+
+        return root;
     }
 }
