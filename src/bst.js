@@ -57,4 +57,26 @@ export class Tree {
 
         return root;
     }
+
+    insert(value) {
+        
+        const recursiveInsert = (node) => {
+
+            if(node === null) {
+                return new Node(value);
+            }
+
+            if(value > node.data) {
+                node.right = recursiveInsert(node.right);
+            } else if (value < node.data) {
+                node.left = recursiveInsert(node.left);
+            }
+
+            return node;
+        }
+
+        this.root = recursiveInsert(this.root)
+    }
+
+    
 }
