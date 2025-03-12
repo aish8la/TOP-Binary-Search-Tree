@@ -11,19 +11,19 @@ export class Tree {
         this.root = this.buildTree(array);
     }
 
-    buildTreeStructure(array, start, end) {
+    #buildTreeStructure(array, start, end) {
         if(start > end) return null;
 
         const mid = start + Math.floor((end - start) / 2);
         const newNode = new Node(array[mid]);
-        newNode.left = this.buildTreeStructure(array, start, mid - 1);
-        newNode.right = this.buildTreeStructure(array, mid + 1, end);
+        newNode.left = this.#buildTreeStructure(array, start, mid - 1);
+        newNode.right = this.#buildTreeStructure(array, mid + 1, end);
         return newNode;
     }
 
     buildTree(array) {
         const uniqueArr = [...new Set(array)].sort((a, b) => a - b);
-        return this.buildTreeStructure(uniqueArr, 0, uniqueArr.length - 1);
+        return this.#buildTreeStructure(uniqueArr, 0, uniqueArr.length - 1);
     }
 
     buildTreeLoop(array) {
@@ -58,16 +58,16 @@ export class Tree {
         return root;
     }
 
-    recursiveInsert (node, nodeValue) {
+    #recursiveInsert (node, nodeValue) {
 
         if(node === null) {
             return new Node(nodeValue);
         }
 
         if(nodeValue > node.data) {
-            node.right = this.recursiveInsert(node.right, nodeValue);
+            node.right = this.#recursiveInsert(node.right, nodeValue);
         } else if (nodeValue < node.data) {
-            node.left = this.recursiveInsert(node.left, nodeValue);
+            node.left = this.#recursiveInsert(node.left, nodeValue);
         }
 
         return node;
@@ -75,16 +75,16 @@ export class Tree {
 
     insert(value) {
 
-        this.root = this.recursiveInsert(this.root, value);
+        this.root = this.#recursiveInsert(this.root, value);
     }
 
-    deleteRecursive (node, nodeValue) {
+    #deleteRecursive (node, nodeValue) {
         if(node === null) return null;
 
         if(nodeValue < node.data) {
-            node.left = this.deleteRecursive(node.left, nodeValue); 
+            node.left = this.#deleteRecursive(node.left, nodeValue); 
         } else if(nodeValue > node.data) {
-            node.right = this.deleteRecursive(node.right, nodeValue);
+            node.right = this.#deleteRecursive(node.right, nodeValue);
         } else {
             if(node.right === null && node.left === null) {
                 return null;
@@ -99,7 +99,7 @@ export class Tree {
                 successor = successor.left;
             }
 
-            node.right = this.deleteRecursive(node.right, successor.data);
+            node.right = this.#deleteRecursive(node.right, successor.data);
 
             node.data = successor.data;
             
@@ -109,23 +109,23 @@ export class Tree {
 
     delete(value) {
 
-        this.root = this.deleteRecursive(this.root, value);
+        this.root = this.#deleteRecursive(this.root, value);
         
     }
 
-    findRecursive(node, nodeValue) {
+    #findRecursive(node, nodeValue) {
 
         if(node === null) return null;
         if(node.data === nodeValue) return node;
 
         if(nodeValue < node.data) {
-            return this.findRecursive(node.left, nodeValue);
+            return this.#findRecursive(node.left, nodeValue);
         } else {
-            return this.findRecursive(node.right, nodeValue);
+            return this.#findRecursive(node.right, nodeValue);
         }
     }
 
     find(value) {
-        return this.findRecursive(this.root, value);
+        return this.#findRecursive(this.root, value);
     }
 }
