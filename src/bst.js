@@ -82,6 +82,7 @@ export class Tree {
         let previousNode = null;
         let targetNode = null;
         let branch = null;
+        let inOrderSuccessor = null;
 
         const deleteRecursive = (node) => {
 
@@ -107,6 +108,22 @@ export class Tree {
             if(targetNode === null) return;
             if(targetNode.left === null && targetNode.right === null) {
                 previousNode[branch] = null;
+                targetNode = null;
+            } else if(targetNode.left === null || targetNode.right === null) {
+                previousNode[branch] = targetNode.left ? targetNode.left : targetNode.right;
+                targetNode = null;
+            } else if(targetNode.right !== null && targetNode.left !== null) {
+                let tempNode = targetNode.right;
+                while(true) {
+                    if(tempNode.left === null) {
+                        inOrderSuccessor = tempNode;
+                        break;
+                    }
+                    tempNode = tempNode.left;
+                }
+                this.delete(inOrderSuccessor.data);
+                targetNode.data = inOrderSuccessor.data;
+                targetNode = null
             }
 
         }
