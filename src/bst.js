@@ -128,4 +128,30 @@ export class Tree {
     find(value) {
         return this.#findRecursive(this.root, value);
     }
+
+    //Recursive Level order traversal implementation that takes an array of current level nodes
+    #levelOrderRecursive(queue, callbackFn) {
+    
+        if(queue.length === 0) return;
+
+        const nextQueue = [];
+        for (const node of queue) {
+            callbackFn(node);
+            if(node.left) nextQueue.push(node.left);
+            if(node.right) nextQueue.push(node.right);
+        }
+        this.#levelOrderRecursive(nextQueue, callbackFn);
+    }
+
+    levelOrder(callbackFn) {
+        try {
+            if(typeof callbackFn !== "function") throw new Error("Callback Function Required");
+        } catch(e) {
+            console.error(e);
+            return;
+        }
+
+        this.#levelOrderRecursive([this.root], callbackFn);
+    }
+
 }

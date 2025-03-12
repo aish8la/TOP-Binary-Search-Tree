@@ -16,11 +16,12 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-tree.insert(5000);
-prettyPrint(tree.root);
-tree.delete(67);
-tree.delete(5)
-tree.delete(1)
-console.log("find",tree.find(6345))
+// tree.insert(5000);
+// prettyPrint(tree.root);
+// tree.delete(67);
+// tree.delete(5)
+// tree.delete(1)
+// console.log("find",tree.find(6345))
 
 prettyPrint(tree.root);
+tree.levelOrder(console.log)
