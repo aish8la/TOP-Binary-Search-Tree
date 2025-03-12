@@ -143,6 +143,22 @@ export class Tree {
         this.#levelOrderRecursive(nextQueue, callbackFn);
     }
 
+    #levelOrderIterative(root, callbackFn) {
+
+        if(!root) return null;
+
+        const queue = [root];
+        let queueFront = 0;
+        let currentNode;
+        while(queue.length > queueFront) {
+            currentNode = queue[queueFront];
+            callbackFn(currentNode);
+            if (currentNode.left !== null) queue.push(currentNode.left);
+            if (currentNode.right !== null) queue.push(currentNode.right);
+            queueFront++;
+        }
+    }
+
     levelOrder(callbackFn) {
         try {
             if(typeof callbackFn !== "function") throw new Error("Callback Function Required");
@@ -151,7 +167,10 @@ export class Tree {
             return;
         }
 
-        this.#levelOrderRecursive([this.root], callbackFn);
+        this.#levelOrderIterative(this.root, callbackFn);
+
+        //Recursive Function
+        // this.#levelOrderRecursive([this.root], callbackFn);
     }
 
 }
