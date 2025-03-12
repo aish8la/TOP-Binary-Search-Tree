@@ -78,5 +78,39 @@ export class Tree {
         this.root = recursiveInsert(this.root)
     }
 
-    
+    delete(value) {
+        let previousNode = null;
+        let targetNode = null;
+        let branch = null;
+
+        const deleteRecursive = (node) => {
+
+            if(node === null) {
+                return;
+            }
+            console.log(node.data);
+            if(node.data === value) {
+                targetNode = node;
+                return;
+            }
+
+            if(value > node.data) {
+                previousNode = node;
+                branch = "right";
+                deleteRecursive(node.right)
+            } else if(value < node.data) {
+                previousNode = node;
+                branch = "left";
+                deleteRecursive(node.left)
+            }
+
+            if(targetNode === null) return;
+            if(targetNode.left === null && targetNode.right === null) {
+                previousNode[branch] = null;
+            }
+
+        }
+
+        deleteRecursive(this.root);
+    }
 }

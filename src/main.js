@@ -18,4 +18,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 tree.insert(5000);
 
+tree.delete(5000);
+tree.delete(5)
+
 prettyPrint(tree.root);
