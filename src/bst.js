@@ -79,55 +79,37 @@ export class Tree {
     }
 
     delete(value) {
-        let previousNode = null;
-        let targetNode = null;
-        let branch = null;
-        let inOrderSuccessor = null;
 
-        const deleteRecursive = (node) => {
+        const deleteRecursive = (node, nodeValue) => {
+            if(node === null) return null;
 
-            if(node === null) {
-                return;
-            }
-            console.log(node.data);
-            if(node.data === value) {
-                targetNode = node;
-                return;
-            }
-
-            if(value > node.data) {
-                previousNode = node;
-                branch = "right";
-                deleteRecursive(node.right)
-            } else if(value < node.data) {
-                previousNode = node;
-                branch = "left";
-                deleteRecursive(node.left)
-            }
-
-            if(targetNode === null) return;
-            if(targetNode.left === null && targetNode.right === null) {
-                previousNode[branch] = null;
-                targetNode = null;
-            } else if(targetNode.left === null || targetNode.right === null) {
-                previousNode[branch] = targetNode.left ? targetNode.left : targetNode.right;
-                targetNode = null;
-            } else if(targetNode.right !== null && targetNode.left !== null) {
-                let tempNode = targetNode.right;
-                while(true) {
-                    if(tempNode.left === null) {
-                        inOrderSuccessor = tempNode;
-                        break;
-                    }
-                    tempNode = tempNode.left;
+            if(nodeValue < node.data) {
+                node.left = deleteRecursive(node.left, nodeValue); 
+            } else if(nodeValue > node.data) {
+                node.right = deleteRecursive(node.right, nodeValue);
+            } else {
+                if(node.right === null && node.left === null) {
+                    return null;
                 }
-                this.delete(inOrderSuccessor.data);
-                targetNode.data = inOrderSuccessor.data;
-                targetNode = null
+
+                if(node.right === null) return node.left;
+                if(node.left === null) return node.right;
+
+                let successor = node.right;
+
+                while(successor.left) {
+                    successor = successor.left;
+                }
+
+                node.right = deleteRecursive(node.right, successor.data);
+
+                node.data = successor.data;
+                
             }
-
+            return node;
+            
         }
-
-        deleteRecursive(this.root);
+        this.root = deleteRecursive(this.root, value);
+        
     }
 }
