@@ -112,4 +112,20 @@ export class Tree {
         this.root = this.deleteRecursive(this.root, value);
         
     }
+
+    findRecursive(node, nodeValue) {
+
+        if(node === null) return null;
+        if(node.data === nodeValue) return node;
+
+        if(nodeValue < node.data) {
+            return this.findRecursive(node.left, nodeValue);
+        } else {
+            return this.findRecursive(node.right, nodeValue);
+        }
+    }
+
+    find(value) {
+        return this.findRecursive(this.root, value);
+    }
 }

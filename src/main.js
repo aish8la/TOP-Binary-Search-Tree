@@ -1,6 +1,6 @@
 import { Tree } from "./bst.js";
 
-const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+const arr = [1];
 const tree = new Tree(arr);
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -16,13 +16,11 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-tree.insert(5000);
+// tree.insert(5000);
 prettyPrint(tree.root);
 // tree.delete(67);
 // tree.delete(5)
-tree.delete(5000)
-tree.delete(67)
-tree.delete(5)
-tree.delete(8)
+tree.delete(1)
+console.log("find",tree.find(8))
 
 prettyPrint(tree.root);
