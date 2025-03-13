@@ -27,3 +27,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const driver = new Driver(new Tree);
 driver.initializeTree();
+driver.printElements();
