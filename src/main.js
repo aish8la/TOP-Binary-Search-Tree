@@ -21,7 +21,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 // tree.delete(67);
 // tree.delete(5)
 // tree.delete(1)
-console.log("find",tree.find(1))
+console.log("find",tree.find(324))
 
 prettyPrint(tree.root);
-tree.postOrder(console.log);
+console.log("depth",tree.depth(324));

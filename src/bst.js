@@ -282,4 +282,31 @@ export class Tree {
         // this.#postOrderIterative(this.root, callbackFn);
         this.#postOrderRecursive(this.root, callbackFn);
     }
+
+    #heightRecursive(node) {
+        if(node === null) return -1;
+
+        return 1 + Math.max(this.#heightRecursive(node.left), this.#heightRecursive(node.right));
+    }
+
+    height() {
+        return this.#heightRecursive(this.root);
+    }
+
+    #depthRecusive(value, node) {
+        if(node === null) {
+            return NaN;
+        }
+        if(node.data === value) return 0;
+
+        if(node.data > value) {
+            return 1 + this.#depthRecusive(value, node.left);
+        } else {
+            return 1 + this.#depthRecusive(value, node.right);
+        }
+    }
+
+    depth(value) {
+        return this.#depthRecusive(value, this.root);
+    }
 }
