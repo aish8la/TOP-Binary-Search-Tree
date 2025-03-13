@@ -191,4 +191,42 @@ export class Tree {
 
         this.#inOrderRecursive(this.root, callbackFn);
     }
+
+    #preOrderRecursive(node, callbackFn) {
+
+        if(node === null) return;
+        callbackFn(node.data);
+        this.#preOrderRecursive(node.left, callbackFn);
+        this.#preOrderRecursive(node.right, callbackFn);
+    }
+
+    preOrder(callbackFn) {
+        try {
+            if(typeof callbackFn !== "function") throw new Error("Callback Function Required");
+        } catch(e) {
+            console.error(e);
+            return;
+        }
+
+        this.#preOrderRecursive(this.root, callbackFn);
+    }
+
+    #postOrderRecursive(node, callbackFn) {
+
+        if(node === null) return;
+        this.#postOrderRecursive(node.left, callbackFn);
+        this.#postOrderRecursive(node.right, callbackFn);
+        callbackFn(node.data);
+    }
+
+    postOrder(callbackFn) {
+        try {
+            if(typeof callbackFn !== "function") throw new Error("Callback Function Required");
+        } catch(e) {
+            console.error(e);
+            return;
+        }
+
+        this.#postOrderRecursive(this.root, callbackFn);
+    }
 }

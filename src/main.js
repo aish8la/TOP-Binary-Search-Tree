@@ -24,4 +24,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 console.log("find",tree.find(1))
 
 prettyPrint(tree.root);
-tree.inOrder(console.log)
+tree.postOrder(console.log)
