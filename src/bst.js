@@ -181,6 +181,27 @@ export class Tree {
         this.#inOrderRecursive(node.right, callbackFn);
     }
 
+    #inOrderIterative(node, callbackFn) {
+
+        const stack = [];
+        let currentNode = node;
+
+
+        while(currentNode || stack.length > 0) {
+
+            while(currentNode) {
+                stack.push(currentNode);
+                currentNode = currentNode.left;
+            }
+
+            currentNode = stack.pop();
+            callbackFn(currentNode.data);
+
+            currentNode = currentNode.right;
+        }
+    }
+
+
     inOrder(callbackFn) {
         try {
             if(typeof callbackFn !== "function") throw new Error("Callback Function Required");
@@ -189,6 +210,7 @@ export class Tree {
             return;
         }
 
+        // this.#inOrderIterative(this.root,callbackFn);
         this.#inOrderRecursive(this.root, callbackFn);
     }
 
@@ -200,6 +222,19 @@ export class Tree {
         this.#preOrderRecursive(node.right, callbackFn);
     }
 
+    #preOrderIterative(node, callbackFn) {
+        const stack = [node];
+        let currentNode;
+
+        while(stack.length > 0) {
+            currentNode = stack.pop();
+            callbackFn(currentNode.data);
+
+            if(currentNode.right) stack.push(currentNode.right);
+            if(currentNode.left) stack.push(currentNode.left);
+        }
+    }
+
     preOrder(callbackFn) {
         try {
             if(typeof callbackFn !== "function") throw new Error("Callback Function Required");
@@ -207,7 +242,7 @@ export class Tree {
             console.error(e);
             return;
         }
-
+        // this.#preOrderIterative(this.root, callbackFn);
         this.#preOrderRecursive(this.root, callbackFn);
     }
 
@@ -219,6 +254,24 @@ export class Tree {
         callbackFn(node.data);
     }
 
+    #postOrderIterative(node, callbackFn) {
+        const stack1 = [node];
+        const stack2 = [];
+        let currentNode;
+
+        while(stack1.length > 0) {
+            currentNode = stack1.pop();
+            stack2.push(currentNode);
+            if(currentNode.left) stack1.push(currentNode.left);
+            if(currentNode.right) stack1.push(currentNode.right);
+        }
+
+        while(stack2.length > 0) {
+            currentNode = stack2.pop();
+            callbackFn(currentNode.data);
+        }
+    }
+
     postOrder(callbackFn) {
         try {
             if(typeof callbackFn !== "function") throw new Error("Callback Function Required");
@@ -226,7 +279,7 @@ export class Tree {
             console.error(e);
             return;
         }
-
+        // this.#postOrderIterative(this.root, callbackFn);
         this.#postOrderRecursive(this.root, callbackFn);
     }
 }
