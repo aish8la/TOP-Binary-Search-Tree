@@ -19,3 +19,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 tree.insert(5001);
 prettyPrint(tree.root);
 console.log("is Balanced ?",tree.isBalanced());
+tree.rebalance();
+prettyPrint(tree.root);
+console.log("is Balanced ?",tree.isBalanced());
