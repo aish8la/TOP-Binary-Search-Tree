@@ -26,5 +26,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 // console.log("is Balanced ?",tree.isBalanced());
 
 const driver = new Driver(new Tree);
-driver.initializeTree();
-driver.printElements();
+driver.driver();

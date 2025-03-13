@@ -61,4 +61,28 @@ export class Driver {
     console.log("Post Order:", postOrder);
     console.log("In Order:", inOrder);
   }
+
+  insertRandom() {
+    const array = this.randomArray(101, 200, this.randomNumberRange(3, 8));
+    array.forEach(e => this.tree.insert(e));
+  }
+
+  driver() {
+    console.log("\n------Initialize Tree--------\n");
+    this.initializeTree();
+    console.log("\n------Check If Tree is Balanced--------\n");
+    this.printIsTreeBalanced();
+    console.log("\n------Print Tree Elements--------\n");
+    this.printElements();
+    console.log("\n------Insert Random Elements--------\n");
+    this.insertRandom();
+    console.log("\n------Check If Tree is Balanced After Inserts--------\n");
+    this.printIsTreeBalanced();
+    console.log("\n------Rebalance Tree--------\n");
+    this.tree.rebalance();
+    console.log("\n------Confirm If Tree is Balanced Properly--------\n");
+    this.printIsTreeBalanced();
+    console.log("\n------Print Tree Elements--------\n");
+    this.printElements();
+  }
 }
