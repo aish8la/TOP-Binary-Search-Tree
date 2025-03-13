@@ -136,7 +136,7 @@ export class Tree {
 
         const nextQueue = [];
         for (const node of queue) {
-            callbackFn(node);
+            callbackFn(node.data);
             if(node.left) nextQueue.push(node.left);
             if(node.right) nextQueue.push(node.right);
         }
@@ -152,7 +152,7 @@ export class Tree {
         let currentNode;
         while(queue.length > queueFront) {
             currentNode = queue[queueFront];
-            callbackFn(currentNode);
+            callbackFn(currentNode.data);
             if (currentNode.left !== null) queue.push(currentNode.left);
             if (currentNode.right !== null) queue.push(currentNode.right);
             queueFront++;
