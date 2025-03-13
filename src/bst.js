@@ -173,4 +173,22 @@ export class Tree {
         // this.#levelOrderRecursive([this.root], callbackFn);
     }
 
+    #inOrderRecursive(node, callbackFn) {
+
+        if(node === null) return;
+        this.#inOrderRecursive(node.left, callbackFn);
+        callbackFn(node.data);
+        this.#inOrderRecursive(node.right, callbackFn);
+    }
+
+    inOrder(callbackFn) {
+        try {
+            if(typeof callbackFn !== "function") throw new Error("Callback Function Required");
+        } catch(e) {
+            console.error(e);
+            return;
+        }
+
+        this.#inOrderRecursive(this.root, callbackFn);
+    }
 }
