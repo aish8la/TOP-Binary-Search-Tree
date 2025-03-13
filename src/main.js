@@ -16,12 +16,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-// tree.insert(5000);
-// prettyPrint(tree.root);
-// tree.delete(67);
-// tree.delete(5)
-// tree.delete(1)
-console.log("find",tree.find(324))
-
+tree.insert(5001);
 prettyPrint(tree.root);
-console.log("depth",tree.depth(324));
+console.log("is Balanced ?",tree.isBalanced());

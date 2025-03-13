@@ -309,4 +309,19 @@ export class Tree {
     depth(value) {
         return this.#depthRecusive(value, this.root);
     }
+
+    #isBalancedRecursive(node) {
+        if(node === null) return 0;
+
+        let left = this.#isBalancedRecursive(node.left);
+        let right = this.#isBalancedRecursive(node.right);
+        if(left === -1 || right === - 1) return - 1;
+        if(Math.abs(left - right) > 1) return - 1;
+
+        return Math.max(left, right) + 1;;
+    }
+
+    isBalanced() {
+        return this.#isBalancedRecursive(this.root) !== -1;
+    }
 }
