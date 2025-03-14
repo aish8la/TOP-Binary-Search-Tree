@@ -295,19 +295,29 @@ export class Tree {
 
     #depthRecusive(value, node) {
         if(node === null) {
-            return NaN;
+            return - 1;
         }
         if(node.data === value) return 0;
 
-        if(node.data > value) {
-            return 1 + this.#depthRecusive(value, node.left);
-        } else {
-            return 1 + this.#depthRecusive(value, node.right);
+        let depth = 0;
+
+        if(value < node.data) {
+            depth = this.#depthRecusive(value, node.left);
+        } else if(value > node.data) {
+            depth = this.#depthRecusive(value, node.right);
         }
+
+        if(depth === - 1) return - 1;
+        return depth + 1;
     }
 
     depth(value) {
-        return this.#depthRecusive(value, this.root);
+        const depth = this.#depthRecusive(value, this.root);
+        if(depth === - 1) {
+            console.warn("Value Not Found");
+            return;
+        }
+        return depth;
     }
 
     #isBalancedRecursive(node) {
